@@ -21,6 +21,7 @@ class CategoryAdminViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixin
                            mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     queryset = Category.objects.all()
     serializer_class = CategoryDetailSerializers
+    permission_classes = (IsAdminUser,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -29,7 +30,7 @@ class CategoryAdminViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixin
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    def update(self, request, pk=None):
+    def update(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
@@ -54,7 +55,7 @@ class FoodAdminViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.Cr
                        mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     queryset = Food.objects.all()
     serializer_class = FoodDetailSerializers
-    # permission_classes = (IsAdminUser, )
+    permission_classes = (IsAdminUser, )
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -81,6 +82,7 @@ class PortionAdminView(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.Cr
 
     queryset = Portion.objects.all()
     serializer_class = PortionListSerializers
+    permission_classes = (IsAdminUser,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
