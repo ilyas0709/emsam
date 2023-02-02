@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_yasg2',
     'corsheaders',
     'sushi.apps.SushiConfig',
+    'celery',
 ]
 
 MIDDLEWARE = [
@@ -139,5 +140,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+
 CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
+
 
